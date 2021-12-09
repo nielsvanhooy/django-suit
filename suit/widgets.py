@@ -2,12 +2,18 @@ from django.contrib.admin.widgets import AdminTimeWidget, AdminDateWidget
 from django.forms import TextInput, Select, Textarea
 from django.utils.safestring import mark_safe
 from django import forms
-from django.utils.translation import ugettext as _
 from django.templatetags.static import static
 
 from suit import utils
 
 django_version = utils.django_major_version()
+
+# django < 1.9 support
+from django import VERSION
+if VERSION >= (2, 0):
+    from django.utils.translation import gettext_lazy as _
+else:
+    from django.utils.translation import ugettext_lazy as _
 
 
 class NumberInput(TextInput):
